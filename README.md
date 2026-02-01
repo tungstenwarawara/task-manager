@@ -12,15 +12,31 @@ GitHub + Claude Code を使ったライフマネジメントシステム。
 - **知識ベース**: [knowledge-base](https://github.com/tungstenwarawara/knowledge-base) リポジトリ
 - **自動ダイジェスト**: GitHub Actions で毎日情報収集
 
-## セットアップ
+## クイックセットアップ
+
+```bash
+# gh CLI をインストール (まだの場合)
+# macOS: brew install gh
+# Ubuntu: sudo apt install gh
+
+# 認証
+gh auth login
+
+# セットアップスクリプトを実行
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+```
+
+これで以下が自動的に設定されます:
+- ラベル（Pillar, Type, Priority, Status）
+- knowledge-base リポジトリ
+- GitHub Project (Life Dashboard)
+
+## 手動セットアップ
 
 ### 1. ラベルの設定
 
 ```bash
-# gh CLI がインストールされていることを確認
-gh --version
-
-# ラベルを設定
 chmod +x scripts/setup-labels.sh
 ./scripts/setup-labels.sh
 ```
