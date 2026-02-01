@@ -24,7 +24,7 @@ jobs:
         with:
           repository: ${{ github.repository_owner }}/knowledge-base
           path: knowledge-base
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CROSS_REPO_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
