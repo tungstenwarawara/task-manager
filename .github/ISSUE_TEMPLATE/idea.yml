@@ -1,0 +1,43 @@
+name: Idea / Someday
+description: Capture an idea or something to do someday
+title: "[Idea] "
+labels: ["type:idea"]
+body:
+  - type: dropdown
+    id: pillar
+    attributes:
+      label: Pillar (領域)
+      description: Which area of life does this idea relate to?
+      options:
+        - Work (仕事)
+        - Health (健康)
+        - Learning (学習)
+        - Relationships (人間関係)
+        - Finance (お金)
+        - Personal (個人)
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Idea (アイデア)
+      description: Describe your idea
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why? (なぜ？)
+      description: Why is this interesting or important?
+    validations:
+      required: false
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: Resources (参考リンク)
+      description: Any relevant links or resources
+    validations:
+      required: false

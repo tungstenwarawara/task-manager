@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Daily Journal
+    url: https://github.com/tungstenwarawara/knowledge-base/tree/main/journal
+    about: Write your daily journal in the knowledge-base repository
+  - name: View Digest
+    url: https://github.com/tungstenwarawara/knowledge-base/tree/main/digest
+    about: View auto-generated daily digests

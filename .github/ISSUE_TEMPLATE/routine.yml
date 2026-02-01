@@ -1,0 +1,79 @@
+name: Routine Task
+description: Create a recurring/routine task
+title: "[Routine] "
+labels: ["type:routine"]
+body:
+  - type: dropdown
+    id: pillar
+    attributes:
+      label: Pillar (領域)
+      description: Which area of life does this routine belong to?
+      options:
+        - Work (仕事)
+        - Health (健康)
+        - Learning (学習)
+        - Relationships (人間関係)
+        - Finance (お金)
+        - Personal (個人)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: recurrence
+    attributes:
+      label: Recurrence (繰り返し)
+      description: How often should this repeat?
+      options:
+        - Daily (毎日)
+        - Weekly (毎週)
+        - Monthly (毎月)
+    validations:
+      required: true
+
+  - type: input
+    id: schedule
+    attributes:
+      label: Schedule (スケジュール)
+      description: When should this be done? (e.g., "Every Monday", "Every day at 9:00")
+      placeholder: "Every Monday at 10:00"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: energy
+    attributes:
+      label: Energy (必要なエネルギー)
+      options:
+        - High Focus (集中が必要)
+        - Low Focus (軽い作業)
+        - Routine (ルーティン)
+    validations:
+      required: false
+
+  - type: input
+    id: estimated_time
+    attributes:
+      label: Estimated Time (見積もり時間)
+      description: How long does this take? (in minutes)
+      placeholder: "15"
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description (詳細)
+      description: What needs to be done each time?
+    validations:
+      required: false
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist Template (チェックリスト)
+      description: Steps to complete each time
+      placeholder: |
+        - [ ] Step 1
+        - [ ] Step 2
+    validations:
+      required: false

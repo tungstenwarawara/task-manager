@@ -1,0 +1,108 @@
+# 興味関心の設定ファイル
+# このファイルを編集して、自動情報収集の対象を設定します
+
+topics:
+  - name: AI/機械学習
+    keywords:
+      - LLM
+      - Claude
+      - GPT
+      - 機械学習
+      - deep learning
+      - transformer
+      - neural network
+    sources:
+      - arxiv
+      - hacker_news
+      - techcrunch
+      - reddit
+      - youtube
+      - x_twitter
+    priority: high
+
+  - name: プログラミング
+    keywords:
+      - Python
+      - TypeScript
+      - Rust
+      - Go
+      - programming
+      - software engineering
+    sources:
+      - hacker_news
+      - reddit
+      - youtube
+    priority: medium
+
+  - name: ビジネス/スタートアップ
+    keywords:
+      - startup
+      - VC
+      - 資金調達
+      - entrepreneurship
+      - product
+    sources:
+      - techcrunch
+      - hacker_news
+      - reddit
+      - x_twitter
+    priority: medium
+
+# 情報ソースの設定
+sources:
+  arxiv:
+    type: api
+    url: https://export.arxiv.org/api/query
+    categories:
+      - cs.AI
+      - cs.LG
+      - cs.CL
+
+  hacker_news:
+    type: api
+    url: https://hacker-news.firebaseio.com/v0
+    endpoints:
+      top: /topstories.json
+      new: /newstories.json
+      best: /beststories.json
+
+  techcrunch:
+    type: rss
+    url: https://techcrunch.com/feed/
+
+  reddit:
+    type: api
+    url: https://www.reddit.com/r/{subreddit}/.json
+    subreddits:
+      - MachineLearning
+      - programming
+      - technology
+      - startups
+      - artificial
+
+  youtube:
+    type: api
+    url: https://www.googleapis.com/youtube/v3
+    search_queries:
+      - AI tutorial 2026
+      - machine learning
+      - programming tutorial
+      - tech news
+
+  x_twitter:
+    type: rss
+    note: Using Nitter RSS as X API alternative
+    accounts:
+      - AnthropicAI
+      - OpenAI
+      - ylecun
+      - kaborators
+    # nitter_base_url: https://nitter.net
+
+# ダイジェスト設定
+digest:
+  frequency: daily
+  time: "06:00"  # UTC
+  max_items_per_topic: 10
+  language: ja
+  include_summary: true

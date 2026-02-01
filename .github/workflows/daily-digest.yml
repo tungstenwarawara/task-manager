@@ -1,0 +1,69 @@
+name: Daily Digest
+
+on:
+  schedule:
+    # Run at 6:00 AM UTC (15:00 JST) every day
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date for digest (YYYY-MM-DD, optional)'
+        required: false
+        type: string
+
+jobs:
+  collect-and-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout task-manager
+        uses: actions/checkout@v4
+
+      - name: Checkout knowledge-base
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/knowledge-base
+          path: knowledge-base
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml anthropic
+
+      - name: Collect news
+        run: |
+          python scripts/collect-news.py knowledge-base/interests.yaml
+
+      - name: Generate digest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python scripts/generate-digest.py collected_news.json knowledge-base/digest
+
+      - name: Commit and push digest
+        working-directory: knowledge-base
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+          # Check if there are changes
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git add digest/
+          git commit -m "Add daily digest for $(date +%Y-%m-%d)"
+          git push
+
+      - name: Upload collected news artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: collected-news-${{ github.run_id }}
+          path: collected_news.json
+          retention-days: 7

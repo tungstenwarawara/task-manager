@@ -1,0 +1,80 @@
+name: Task
+description: Create a new task
+title: "[Task] "
+labels: ["type:task"]
+body:
+  - type: dropdown
+    id: pillar
+    attributes:
+      label: Pillar (領域)
+      description: Which area of life does this task belong to?
+      options:
+        - Work (仕事)
+        - Health (健康)
+        - Learning (学習)
+        - Relationships (人間関係)
+        - Finance (お金)
+        - Personal (個人)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority (優先度)
+      options:
+        - High (高)
+        - Medium (中)
+        - Low (低)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: energy
+    attributes:
+      label: Energy (必要なエネルギー)
+      description: How much focus does this task require?
+      options:
+        - High Focus (集中が必要)
+        - Low Focus (軽い作業)
+        - Routine (ルーティン)
+    validations:
+      required: false
+
+  - type: input
+    id: due_date
+    attributes:
+      label: Due Date (期限)
+      description: When should this be done? (YYYY-MM-DD)
+      placeholder: "2026-02-15"
+    validations:
+      required: false
+
+  - type: input
+    id: estimated_time
+    attributes:
+      label: Estimated Time (見積もり時間)
+      description: How long will this take? (in minutes)
+      placeholder: "30"
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description (詳細)
+      description: What needs to be done?
+    validations:
+      required: false
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist (チェックリスト)
+      description: Break down the task into smaller steps
+      placeholder: |
+        - [ ] Step 1
+        - [ ] Step 2
+        - [ ] Step 3
+    validations:
+      required: false
