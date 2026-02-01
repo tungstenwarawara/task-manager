@@ -1,0 +1,59 @@
+{
+  "repository": {
+    "owner": "tungstenwarawara",
+    "task_repo": "task-manager",
+    "knowledge_repo": "knowledge-base"
+  },
+  "language": {
+    "default": "ja",
+    "supported": ["ja", "en"]
+  },
+  "labels": {
+    "pillars": {
+      "work": "仕事",
+      "health": "健康",
+      "learning": "学習",
+      "relations": "人間関係",
+      "finance": "お金",
+      "personal": "個人"
+    },
+    "priorities": {
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "types": {
+      "task": "単発タスク",
+      "routine": "定期タスク",
+      "project": "プロジェクト",
+      "idea": "アイデア"
+    },
+    "statuses": {
+      "today": "今日やる",
+      "this-week": "今週やる",
+      "blocked": "ブロック中"
+    }
+  },
+  "defaults": {
+    "priority": "medium",
+    "type": "task"
+  },
+  "patterns": {
+    "ja": {
+      "show_today": ["今日のタスク", "今日やること", "タスク一覧"],
+      "add_task": ["をタスクに追加", "を追加", "新しいタスク"],
+      "complete": ["を完了", "完了", "をクローズ"],
+      "journal": ["日記を書きたい", "日記", "今日の日記"],
+      "review": ["週次レビュー", "今週の振り返り"],
+      "digest": ["今日のダイジェスト", "ニュースを見せて"]
+    },
+    "en": {
+      "show_today": ["today's tasks", "show tasks", "task list"],
+      "add_task": ["add task", "create task", "new task"],
+      "complete": ["complete", "close", "done"],
+      "journal": ["write journal", "journal", "diary"],
+      "review": ["weekly review", "review week"],
+      "digest": ["today's digest", "show news", "digest"]
+    }
+  }
+}
