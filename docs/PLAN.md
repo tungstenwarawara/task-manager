@@ -136,6 +136,9 @@ topics:
       - arxiv
       - hacker_news
       - techcrunch
+      - reddit
+      - youtube
+      - x_twitter
     priority: high
 
   - name: プログラミング
@@ -145,7 +148,8 @@ topics:
       - Rust
     sources:
       - hacker_news
-      - dev_to
+      - reddit
+      - youtube
     priority: medium
 
   - name: ビジネス/スタートアップ
@@ -156,6 +160,8 @@ topics:
     sources:
       - techcrunch
       - hacker_news
+      - reddit
+      - x_twitter
     priority: medium
 
 sources:
@@ -170,6 +176,34 @@ sources:
   techcrunch:
     type: rss
     url: https://techcrunch.com/feed/
+
+  reddit:
+    type: api
+    url: https://www.reddit.com/r/{subreddit}/.json
+    subreddits:
+      - MachineLearning
+      - programming
+      - technology
+      - startups
+
+  youtube:
+    type: api
+    url: https://www.googleapis.com/youtube/v3
+    note: YouTube Data API v3を使用（API Key必要）
+    search_queries:
+      - AI tutorial
+      - programming
+      - tech news
+
+  x_twitter:
+    type: api
+    note: |
+      X API は制限が厳しいため、代替手段を検討:
+      1. Nitter (非公式フロントエンド) のRSSフィード
+      2. 特定リストのRSS化サービス
+      3. X API Basic プラン ($100/月) を契約
+    alternatives:
+      - nitter_rss: https://nitter.net/{username}/rss
 ```
 
 ### GitHub Actions ワークフロー
@@ -307,16 +341,26 @@ Claude: 日記を作成しました。他に追加したいことはあります
 
 ---
 
-## 確認事項
+## 決定事項
 
-1. **情報収集ソース**: 上記以外に追加したいソースはあるか？
-   - 例: 特定のブログ、ニュースサイト、YouTube チャンネルなど
+| 項目 | 決定 |
+|------|------|
+| 情報収集ソース | Hacker News, arXiv, TechCrunch, Reddit, YouTube, X |
+| ダイジェスト頻度 | 毎日 |
+| knowledge-base | private リポジトリ |
+| 領域（Pillar） | Work / Health / Learning / Relationships / Finance / Personal |
 
-2. **ダイジェストの頻度**: 毎日 or 週1回？
+## 必要なAPIキー・認証情報
 
-3. **Anthropic API キー**: 自動ダイジェスト生成に必要（GitHub Secrets に設定）
+GitHub Secrets に以下を設定する必要があります：
 
-4. **日記の公開設定**: knowledge-base は private リポジトリで良いか？
+| Secret名 | 用途 | 取得方法 |
+|----------|------|----------|
+| `ANTHROPIC_API_KEY` | Claude APIでダイジェスト生成 | [Anthropic Console](https://console.anthropic.com/) |
+| `YOUTUBE_API_KEY` | YouTube Data API | [Google Cloud Console](https://console.cloud.google.com/) |
+| `X_BEARER_TOKEN` | X API (オプション) | [X Developer Portal](https://developer.twitter.com/) |
+
+**注意**: X API は Basic プランで $100/月 かかるため、代替として Nitter RSS を使用することも可能です。
 
 ---
 
