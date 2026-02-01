@@ -49,13 +49,15 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
 
-          # Check if there are changes
-          if git diff --quiet && git diff --staged --quiet; then
+          # Add files first (including new untracked files)
+          git add digest/
+
+          # Check if there are staged changes
+          if git diff --staged --quiet; then
             echo "No changes to commit"
             exit 0
           fi
 
-          git add digest/
           git commit -m "Add daily digest for $(date +%Y-%m-%d)"
           git push
 
