@@ -33,17 +33,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml anthropic
+          pip install pyyaml
 
       - name: Collect news
         run: |
           python scripts/collect-news.py knowledge-base/interests.yaml
 
-      - name: Generate digest
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Convert to Markdown
         run: |
-          python scripts/generate-digest.py collected_news.json knowledge-base/digest
+          python scripts/news-to-markdown.py collected_news.json knowledge-base/digest
 
       - name: Commit and push digest
         working-directory: knowledge-base
