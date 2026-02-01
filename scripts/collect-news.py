@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
+from urllib.parse import quote_plus
 import xml.etree.ElementTree as ET
 
 # Try to import yaml, fall back to basic parsing if not available
@@ -152,12 +153,22 @@ def fetch_arxiv(categories: list[str], keywords: list[str], limit: int = 20) -> 
     """Fetch papers from arXiv."""
     items = []
 
-    # Build query
-    cat_query = " OR ".join([f"cat:{cat}" for cat in categories])
-    keyword_query = " OR ".join([f"all:{kw}" for kw in keywords[:5]])  # Limit keywords
-    query = f"({cat_query}) AND ({keyword_query})"
+    # Filter out non-ASCII keywords (arXiv only supports ASCII)
+    ascii_keywords = [kw for kw in keywords if kw.isascii()]
 
-    url = f"https://export.arxiv.org/api/query?search_query={query}&start=0&max_results={limit}&sortBy=submittedDate&sortOrder=descending"
+    if not ascii_keywords:
+        print("Warning: No ASCII keywords for arXiv search, using categories only")
+        cat_query = " OR ".join([f"cat:{cat}" for cat in categories])
+        query = cat_query
+    else:
+        # Build query
+        cat_query = " OR ".join([f"cat:{cat}" for cat in categories])
+        keyword_query = " OR ".join([f"all:{kw}" for kw in ascii_keywords[:5]])
+        query = f"({cat_query}) AND ({keyword_query})"
+
+    # URL encode the query
+    encoded_query = quote_plus(query)
+    url = f"https://export.arxiv.org/api/query?search_query={encoded_query}&start=0&max_results={limit}&sortBy=submittedDate&sortOrder=descending"
     content = fetch_url(url)
     if not content:
         return items
