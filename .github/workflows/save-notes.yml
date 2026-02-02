@@ -1,0 +1,68 @@
+name: Save Notes to Knowledge Base
+
+on:
+  push:
+    paths:
+      - 'pending-notes/*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  save-notes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout task-manager
+        uses: actions/checkout@v4
+
+      - name: Checkout knowledge-base
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/knowledge-base
+          path: knowledge-base
+          token: ${{ secrets.CROSS_REPO_TOKEN }}
+
+      - name: Copy notes to knowledge-base
+        run: |
+          # Process each markdown file in pending-notes directory
+          for file in pending-notes/*.md; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              echo "Processing $filename"
+
+              # Create notes directory if not exists
+              mkdir -p knowledge-base/notes
+
+              # Copy file to knowledge-base
+              cp "$file" "knowledge-base/notes/$filename"
+              echo "Copied $filename to knowledge-base/notes/"
+            fi
+          done
+
+      - name: Commit and push to knowledge-base
+        working-directory: knowledge-base
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+          git add notes/
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add notes from task-manager"
+            git push
+          fi
+
+      - name: Cleanup processed files
+        run: |
+          if [ -d "pending-notes" ] && [ "$(ls -A pending-notes/*.md 2>/dev/null)" ]; then
+            rm pending-notes/*.md
+            git config user.name "GitHub Actions Bot"
+            git config user.email "actions@github.com"
+            git add pending-notes/
+            git commit -m "Cleanup: remove processed pending notes" || true
+            git push || true
+          fi
