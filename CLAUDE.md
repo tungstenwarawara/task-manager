@@ -30,6 +30,35 @@
 | {内容} を追加、優先度{高\|中\|低} | Issue を作成（領域を確認） |
 | 新しいタスク: {内容} | Issue を作成 |
 
+#### タスク追加の方法（優先順位）
+
+1. **gh CLI が使える場合**: `gh issue create` で直接作成
+2. **gh CLI が使えない場合**: `pending-tasks/` フォルダにJSONファイルを作成してコミット＆プッシュ → GitHub Actions が自動でIssue作成
+
+#### pending-tasks による自動Issue作成
+
+gh CLI が使えない環境では、以下の手順でIssueを作成:
+
+1. `pending-tasks/` フォルダにJSONファイルを作成
+2. コミット＆プッシュ
+3. GitHub Actions が自動でIssueを作成し、JSONファイルを削除
+
+**JSONファイルの形式** (`pending-tasks/任意の名前.json`):
+
+```json
+{
+  "tasks": [
+    {
+      "title": "[Task] タスクのタイトル",
+      "labels": ["type:task", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\nタスクの詳細説明"
+    }
+  ]
+}
+```
+
+**注意**: ラベルはリポジトリに存在するものを指定すること
+
 ### タスク完了
 
 | ユーザー入力 | アクション |
