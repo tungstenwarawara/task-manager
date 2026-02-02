@@ -1,9 +1,0 @@
-{
-  "tasks": [
-    {
-      "title": "[Task] Bizプロジェクトの性能負荷検証用件名データ作成",
-      "labels": ["type:task", "pillar:work", "priority:high", "status:today"],
-      "body": "## 概要\nBizプロジェクトの性能負荷検証用件名データ作成\n\n## 期限\n今日中"
-    }
-  ]
-}
