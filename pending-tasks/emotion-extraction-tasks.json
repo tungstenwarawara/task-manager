@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "title": "[Routine] emotionの組み合わせ品番データ抽出",
+      "labels": ["type:routine", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\n月初の定期作業\n\n## 手順\n1. ローカルタスクマネージャーでバッチ実行\n2. SQL実行 → CSV出力\n3. PowerQueryでExcel集計\n4. お客様に提供\n\n## 実行タイミング\n毎月月初の稼働日"
+    },
+    {
+      "title": "[Routine] emotionの納期回答データ抽出",
+      "labels": ["type:routine", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\n月初の定期作業\n\n## 手順\n1. ローカルタスクマネージャーでバッチ実行\n2. SQL実行 → CSV出力\n3. PowerQueryでExcel集計\n4. お客様に提供\n\n## 実行タイミング\n毎月月初の稼働日"
+    },
+    {
+      "title": "[Routine] emotionの注文業務ログデータ抽出",
+      "labels": ["type:routine", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\n月初の定期作業\n\n## 手順\n1. ローカルタスクマネージャーでバッチ実行\n2. SQL実行 → CSV出力\n3. PowerQueryでExcel集計\n4. お客様に提供\n\n## 実行タイミング\n毎月月初の稼働日"
+    }
+  ]
+}
