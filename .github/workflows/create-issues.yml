@@ -1,0 +1,50 @@
+name: Create Issues from Pending Tasks
+
+on:
+  push:
+    paths:
+      - 'pending-tasks/*.json'
+  workflow_dispatch:
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create Issues from Pending Tasks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Process each JSON file in pending-tasks directory
+          for file in pending-tasks/*.json; do
+            if [ -f "$file" ]; then
+              echo "Processing $file"
+
+              # Read JSON and create issues
+              jq -c '.tasks[]' "$file" | while read -r task; do
+                title=$(echo "$task" | jq -r '.title')
+                body=$(echo "$task" | jq -r '.body // ""')
+                labels=$(echo "$task" | jq -r '.labels | join(",")')
+
+                echo "Creating issue: $title"
+                gh issue create \
+                  --title "$title" \
+                  --body "$body" \
+                  --label "$labels"
+              done
+            fi
+          done
+
+      - name: Cleanup processed files
+        run: |
+          if [ -d "pending-tasks" ] && [ "$(ls -A pending-tasks/*.json 2>/dev/null)" ]; then
+            rm pending-tasks/*.json
+            git config user.name "GitHub Actions Bot"
+            git config user.email "actions@github.com"
+            git add pending-tasks/
+            git commit -m "Cleanup: remove processed pending tasks" || true
+            git push || true
+          fi
