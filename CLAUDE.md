@@ -67,6 +67,37 @@ gh CLI が使えない環境では、以下の手順でIssueを作成:
 | #{番号} 完了 | 同上 |
 | #{番号} をクローズ | 同上 |
 
+#### タスク完了の方法（優先順位）
+
+1. **gh CLI が使える場合**: `gh issue close {番号}` で直接クローズ
+2. **gh CLI が使えない場合**: `pending-closes/` フォルダにJSONファイルを作成してコミット＆プッシュ → GitHub Actions が自動でクローズ
+
+#### pending-closes による自動Issueクローズ
+
+gh CLI が使えない環境では、以下の手順でIssueをクローズ:
+
+1. `pending-closes/` フォルダにJSONファイルを作成
+2. コミット＆プッシュ
+3. GitHub Actions が自動でIssueをクローズし、JSONファイルを削除
+
+**JSONファイルの形式** (`pending-closes/任意の名前.json`):
+
+```json
+{
+  "issues": [
+    {
+      "number": 5,
+      "comment": "完了しました"
+    },
+    {
+      "number": 6
+    }
+  ]
+}
+```
+
+**注意**: `comment` は省略可能。指定するとクローズ時にコメントが追加される
+
 ### タスクスケジュール
 
 | ユーザー入力 | アクション |

@@ -1,0 +1,54 @@
+name: Close Issues from Pending Closes
+
+on:
+  push:
+    paths:
+      - 'pending-closes/*.json'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Close Issues from Pending Closes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Process each JSON file in pending-closes directory
+          for file in pending-closes/*.json; do
+            if [ -f "$file" ]; then
+              echo "Processing $file"
+
+              # Read JSON and close issues
+              jq -c '.issues[]' "$file" | while read -r issue; do
+                number=$(echo "$issue" | jq -r '.number')
+                comment=$(echo "$issue" | jq -r '.comment // ""')
+
+                echo "Closing issue: #$number"
+                if [ -n "$comment" ] && [ "$comment" != "" ]; then
+                  gh issue close "$number" --comment "$comment"
+                else
+                  gh issue close "$number"
+                fi
+              done
+            fi
+          done
+
+      - name: Cleanup processed files
+        run: |
+          if [ -d "pending-closes" ] && [ "$(ls -A pending-closes/*.json 2>/dev/null)" ]; then
+            rm pending-closes/*.json
+            git config user.name "GitHub Actions Bot"
+            git config user.email "actions@github.com"
+            git add pending-closes/
+            git commit -m "Cleanup: remove processed pending closes" || true
+            git push || true
+          fi
