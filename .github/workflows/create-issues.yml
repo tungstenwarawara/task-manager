@@ -33,6 +33,13 @@ jobs:
                 body=$(echo "$task" | jq -r '.body // ""')
                 labels=$(echo "$task" | jq -r '.labels | join(",")')
 
+                # Check if issue with same title already exists
+                existing=$(gh issue list --state all --search "$title" --json title --jq '.[].title' | grep -F "$title" || true)
+                if [ -n "$existing" ]; then
+                  echo "Skipping (already exists): $title"
+                  continue
+                fi
+
                 echo "Creating issue: $title"
                 gh issue create \
                   --title "$title" \
