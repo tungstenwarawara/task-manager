@@ -6,6 +6,10 @@ on:
       - 'pending-tasks/*.json'
   workflow_dispatch:
 
+permissions:
+  issues: write
+  contents: write
+
 jobs:
   create-issues:
     runs-on: ubuntu-latest
