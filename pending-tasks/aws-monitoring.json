@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    {
+      "title": "[Task] AWS電話監視方法",
+      "labels": ["type:task", "pillar:work", "priority:low"],
+      "body": "## 概要\nAWS電話監視方法の調査・ドキュメント化\n\n## 期限\n2月中"
+    }
+  ]
+}
