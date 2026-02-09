@@ -69,7 +69,7 @@ def generate_digest_with_claude(collected_data: dict, api_key: str) -> str:
 
     try:
         message = client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="claude-sonnet-4-5-20250929",
             max_tokens=4096,
             messages=[
                 {"role": "user", "content": prompt}

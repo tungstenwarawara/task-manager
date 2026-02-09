@@ -33,13 +33,23 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml
+          pip install pyyaml anthropic
 
       - name: Collect news
         run: |
           python scripts/collect-news.py knowledge-base/interests.yaml
 
-      - name: Convert to Markdown
+      - name: Generate digest with AI summary
+        if: env.ANTHROPIC_API_KEY != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python scripts/generate-digest.py collected_news.json knowledge-base/digest
+
+      - name: Convert to Markdown (fallback without AI)
+        if: env.ANTHROPIC_API_KEY == ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           python scripts/news-to-markdown.py collected_news.json knowledge-base/digest
 

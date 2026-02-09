@@ -1,0 +1,70 @@
+name: Edit Issues from Pending Edits
+
+on:
+  push:
+    paths:
+      - 'pending-edits/*.json'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  edit-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Edit Issues from Pending Edits
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Process each JSON file in pending-edits directory
+          for file in pending-edits/*.json; do
+            if [ -f "$file" ] && [ "$file" != "pending-edits/*.json" ]; then
+              echo "Processing $file"
+
+              # Read JSON and edit issues
+              jq -c '.edits[]' "$file" | while read -r edit; do
+                number=$(echo "$edit" | jq -r '.number')
+
+                # Add labels
+                add_labels=$(echo "$edit" | jq -r '.add_labels // [] | join(",")')
+                if [ -n "$add_labels" ]; then
+                  echo "Adding labels to #$number: $add_labels"
+                  gh issue edit "$number" --add-label "$add_labels"
+                fi
+
+                # Remove labels
+                remove_labels=$(echo "$edit" | jq -r '.remove_labels // [] | @sh')
+                if [ "$remove_labels" != "''" ] && [ -n "$remove_labels" ]; then
+                  eval "labels_array=($remove_labels)"
+                  for label in "${labels_array[@]}"; do
+                    echo "Removing label from #$number: $label"
+                    gh issue edit "$number" --remove-label "$label" 2>/dev/null || true
+                  done
+                fi
+
+                # Add comment if provided
+                comment=$(echo "$edit" | jq -r '.comment // ""')
+                if [ -n "$comment" ]; then
+                  echo "Adding comment to #$number"
+                  gh issue comment "$number" --body "$comment"
+                fi
+              done
+            fi
+          done
+
+      - name: Cleanup processed files
+        run: |
+          if [ -d "pending-edits" ] && [ "$(ls -A pending-edits/*.json 2>/dev/null)" ]; then
+            rm pending-edits/*.json
+            git config user.name "GitHub Actions Bot"
+            git config user.email "actions@github.com"
+            git add pending-edits/
+            git commit -m "Cleanup: remove processed pending edits" || true
+            git push || true
+          fi

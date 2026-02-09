@@ -105,6 +105,36 @@ gh CLI が使えない環境では、以下の手順でIssueをクローズ:
 | #{番号} を今日やる | status:today ラベルを追加 |
 | #{番号} を今週やる | status:this-week ラベルを追加 |
 
+#### タスクスケジュールの方法（優先順位）
+
+1. **gh CLI が使える場合**: `gh issue edit {番号} --add-label "status:today"` で直接編集
+2. **gh CLI が使えない場合**: `pending-edits/` フォルダにJSONファイルを作成してコミット＆プッシュ → GitHub Actions が自動で編集
+
+#### pending-edits による自動Issue編集
+
+gh CLI が使えない環境では、以下の手順でIssueのラベルを編集:
+
+1. `pending-edits/` フォルダにJSONファイルを作成
+2. コミット＆プッシュ
+3. GitHub Actions が自動でラベル追加/削除を実行し、JSONファイルを削除
+
+**JSONファイルの形式** (`pending-edits/任意の名前.json`):
+
+```json
+{
+  "edits": [
+    {
+      "number": 5,
+      "add_labels": ["status:today"],
+      "remove_labels": ["status:this-week"],
+      "comment": "今日のタスクに変更しました"
+    }
+  ]
+}
+```
+
+**注意**: `add_labels`, `remove_labels`, `comment` はすべて省略可能
+
 ### 日記
 
 | ユーザー入力 | アクション |
