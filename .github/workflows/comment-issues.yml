@@ -1,0 +1,50 @@
+name: Comment on Issues from Pending Comments
+
+on:
+  push:
+    paths:
+      - 'pending-comments/*.json'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  comment-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add Comments to Issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Process each JSON file in pending-comments directory
+          for file in pending-comments/*.json; do
+            if [ -f "$file" ]; then
+              echo "Processing $file"
+
+              # Read JSON and add comments
+              jq -c '.comments[]' "$file" | while read -r entry; do
+                number=$(echo "$entry" | jq -r '.number')
+                comment=$(echo "$entry" | jq -r '.body')
+
+                echo "Adding comment to issue: #$number"
+                gh issue comment "$number" --body "$comment"
+              done
+            fi
+          done
+
+      - name: Cleanup processed files
+        run: |
+          if [ -d "pending-comments" ] && [ "$(ls -A pending-comments/*.json 2>/dev/null)" ]; then
+            rm pending-comments/*.json
+            git config user.name "GitHub Actions Bot"
+            git config user.email "actions@github.com"
+            git add pending-comments/
+            git commit -m "Cleanup: remove processed pending comments" || true
+            git push || true
+          fi
