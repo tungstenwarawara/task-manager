@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    {
+      "title": "[Task] 松尾商行 AWS環境切り替え時のemo2メモ発注明細確認・メンバー連携",
+      "labels": ["type:task", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\n松尾商行のAWS環境への切り替え作業時にemo2のメモ発注が発生した。\nメモ発注となった明細を確認し、メンバーに連携する。\n\n## 作業内容\n1. emo2のメモ発注となった明細を確認\n2. 内容をメンバーに連携\n\n## 期限\n本日中"
+    }
+  ]
+}
