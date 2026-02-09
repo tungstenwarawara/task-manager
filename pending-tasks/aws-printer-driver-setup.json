@@ -1,9 +1,0 @@
-{
-  "tasks": [
-    {
-      "title": "[Task] AWS環境プリンタドライバセットアップ（明電産業・矢野電産）",
-      "labels": ["type:routine", "pillar:work", "priority:medium", "status:this-week"],
-      "body": "## 概要\nAWS環境での明電産業・矢野電産用プリンタドライバのセットアップ\n\n## 対象\n- 明電産業\n- 矢野電産\n\n## 期限\n2025年2月13日（金）中"
-    }
-  ]
-}
