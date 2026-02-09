@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    {
+      "title": "[Task] Biz#3419【UT2近畿 シナリオ事前検証】AWE発注連携ありで、Biz発注取り消しがAWEに反映されない動作検証",
+      "labels": ["type:task", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\nBiz#3419 AWE発注連携ありの状態で、Biz発注取り消しがAWEに反映されない動作の検証\n\n## 詳細\n- ST環境での動作検証\n- 参照: http://dev1.arrow.mew.co.jp/vahe/issues/3419\n\n## 期限\n本日中"
+    }
+  ]
+}
