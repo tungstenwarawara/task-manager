@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    {
+      "title": "[Task] AWS環境プリンタドライバセットアップ（常磐電機・萬代電業・徳島電材・ユゲデンキ）",
+      "labels": ["type:task", "pillar:work", "priority:high", "status:this-week"],
+      "body": "## 概要\nAWS環境にてプリンタドライバのセットアップを行う。\n\n## 対象\n- [ ] 常磐電機\n- [ ] 萬代電業\n- [ ] 徳島電材\n- [ ] ユゲデンキ\n\n## 期限\n2026年2月20日（金）中"
+    }
+  ]
+}
