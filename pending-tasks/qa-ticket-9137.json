@@ -1,9 +1,0 @@
-{
-  "tasks": [
-    {
-      "title": "[Task] QAのチケット調査と回答対応",
-      "labels": ["type:task", "pillar:work", "priority:high", "status:today"],
-      "body": "## 概要\nQAのチケット調査と回答対応\n\n## 参照チケット\nhttps://iweb.is.jp.panasonic.com/pa4sqa02/issues/9137\n\n## 期限\n2026-02-16（本日中）"
-    }
-  ]
-}
