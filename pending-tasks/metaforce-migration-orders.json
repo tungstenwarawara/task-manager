@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    {
+      "title": "[Task] MetaForce AWS移行切り替え期間中のemotion→MetaForce注文有無確認・明細整理報告",
+      "labels": ["type:task", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\nMetaForceのAWS移行切り替え作業に伴うサービス停止期間中に、emotionからMetaForceへの注文があったかどうかを確認し、対象の明細を整理・報告する。\n\n## 対象会社\n- 山下商行様\n- 旭川電化様\n- 明電産業様\n- 矢野電産様\n- キョー・エイ様\n\n## 期日\n2026-02-16（本日中）\n\n## 作業内容\n1. サービス停止期間中のemotion→MetaForce注文有無を確認\n2. 対象5社の注文明細を抽出・整理\n3. 報告書としてまとめる"
+    }
+  ]
+}
