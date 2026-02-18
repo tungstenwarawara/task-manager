@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "title": "[Task] ABD 1on1 meeting の準備",
+      "labels": ["type:task", "pillar:work", "priority:medium", "status:this-week"],
+      "body": "## 概要\nABD との 1on1 meeting に向けた準備\n\n## 期限\n2月中に実施\n\n## やること\n- アジェンダの整理\n- 話したいトピックのリストアップ\n- 必要な資料の準備"
+    },
+    {
+      "title": "[Task] ABD 1on1 meeting の予定調整",
+      "labels": ["type:task", "pillar:work", "priority:medium", "status:this-week"],
+      "body": "## 概要\nABD との 1on1 meeting の日程を調整する\n\n## 期限\n2月中に実施\n\n## やること\n- ABD に候補日を連絡\n- 日時を確定\n- ミーティングの場所・方法を決定"
+    }
+  ]
+}
