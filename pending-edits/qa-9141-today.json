@@ -1,9 +1,0 @@
-{
-  "edits": [
-    {
-      "number": 54,
-      "add_labels": ["status:today"],
-      "comment": "今日のタスクに設定しました"
-    }
-  ]
-}
