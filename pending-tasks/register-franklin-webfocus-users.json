@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    {
+      "title": "[Task] FraNKlin_webfocusに新規ユーザーIDを全111件分登録する",
+      "labels": ["type:task", "pillar:work", "priority:high", "status:today"],
+      "body": "## 概要\nFraNKlin_webfocusシステムに新規ユーザーIDを全111件分登録する。\n\n## 作業内容\n- 新規ユーザーID 111件の登録作業\n- 対象システム: FraNKlin_webfocus\n\n## 完了条件\n- 111件全てのユーザーIDが正常に登録されていること"
+    }
+  ]
+}
